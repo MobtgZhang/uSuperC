@@ -2,6 +2,9 @@
 MenuManager::MenuManager(){
     this->currentGameState = eMainMenu;
     this->oMainMenu = new MainMenu();
+    this->oPauseMenu = new PauseMenu();
+    this->oOptionsMenu = new OptionsMenu();
+    this->oAboutMenu = new AboutMenu();
     this->activeOption = NULL;
 }
 
@@ -70,13 +73,13 @@ void MenuManager::enter(){
 			//Application::getMap()->setDrawLines(!Application::getMap()->getDrawLines());
 			break;
 		case eAbout:
-			//oAboutMenu->enter();
+			oAboutMenu->enter();
 			break;
 		case eOptions:
-			//oOptionsMenu->enter();
+			oOptionsMenu->enter();
 			break;
 		case ePause:
-			//oPauseMenu->enter();
+			oPauseMenu->enter();
 			break;
     }
 }
@@ -104,5 +107,17 @@ void MenuManager::escape() {
 
 OptionsMenu* MenuManager::getOptionsMenu(){
     return oOptionsMenu;
+}
+
+MainMenu* MenuManager::getMainMenu(){
+    return oMainMenu;
+}
+
+AboutMenu* MenuManager::getAboutMenu(){
+    return oAboutMenu;
+}
+
+PauseMenu* MenuManager::getPauseMenu(){
+    return oPauseMenu;
 }
 

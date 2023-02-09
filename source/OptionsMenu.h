@@ -19,5 +19,11 @@ public:
     ~OptionsMenu();
     void setEscapeToMainMenu(bool escapeToMainMenu);
     void updateVolumeRect();
+
+    void Draw(SDL_Renderer* rR);
+    void Update();
+
+    void enter();
+    void escapse();
 };
 # endif

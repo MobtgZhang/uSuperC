@@ -1,9 +1,11 @@
 # pragma once
 # ifndef MENUMANAGER_H
 # define MENUMANAGER_H
+# include "Text.h"
 # include "MainMenu.h"
 # include "OptionsMenu.h"
-# include "Text.h"
+# include "AboutMenu.h"
+# include "PauseMenu.h"
 
 class MenuManager{
 
@@ -33,9 +35,16 @@ public:
     void enter();
     void escape();
     OptionsMenu* getOptionsMenu();
+
+    MainMenu* getMainMenu();
+    AboutMenu* getAboutMenu();
+    PauseMenu* getPauseMenu();
+
 private:
     MainMenu* oMainMenu;
     OptionsMenu* oOptionsMenu;
+    AboutMenu* oAboutMenu;
+    PauseMenu* oPauseMenu;
     gameState currentGameState;
     CImg* activeOption;
 };
