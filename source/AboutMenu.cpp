@@ -19,6 +19,6 @@ void AboutMenu::enter(){
 
 }
 
-void AboutMenu::escapse(){
+void AboutMenu::escape(){
 
 }

@@ -10,7 +10,8 @@ public:
     void Update();
 
     void enter();
-    void escapse();
+    void escape();
+    void updateActiveButton(int iDir);
 };
 
 # endif

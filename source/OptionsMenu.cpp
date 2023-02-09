@@ -29,7 +29,11 @@ void OptionsMenu::enter(){
 
 }
 
-void OptionsMenu::escapse(){
+void OptionsMenu::escape(){
+
+}
+
+void OptionsMenu::updateActiveButton(int iDir){
 
 }
 

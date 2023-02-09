@@ -10,7 +10,7 @@ public:
     void Update();
 
     void enter();
-    void escapse();
+    void escape();
 };
 
 # endif

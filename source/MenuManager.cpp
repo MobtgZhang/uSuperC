@@ -1,10 +1,12 @@
 # include "MenuManager.h"
+
 MenuManager::MenuManager(){
     this->currentGameState = eMainMenu;
     this->oMainMenu = new MainMenu();
     this->oPauseMenu = new PauseMenu();
     this->oOptionsMenu = new OptionsMenu();
     this->oAboutMenu = new AboutMenu();
+    this->oLoadingMenu = new LoadingMenu();
     this->activeOption = NULL;
 }
 
@@ -59,6 +61,15 @@ void MenuManager::keyPressed(int iDir){
         case eMainMenu:
             oMainMenu->updateActiveButton(iDir);
             break;
+        case eOptions:
+            oOptionsMenu->updateActiveButton(iDir);
+            break;
+        case ePause:
+            oPauseMenu->updateActiveButton(iDir);
+            break;
+        case eGameLoading:
+            oLoadingMenu->updateActiveButton(iDir);
+            break;
         default:
             break;
     }
@@ -89,13 +100,13 @@ void MenuManager::escape() {
 		case eGame:
 			break;
 		case eAbout:
-			//oAboutMenu->enter();
+			oAboutMenu->enter();
 			break;
 		case eOptions:
-			//oOptionsMenu->escape();
+			oOptionsMenu->escape();
 			break;
 		case ePause:
-			//oPauseMenu->escape();
+			oPauseMenu->escape();
 			break;
 		case eMainMenu:
 			oMainMenu->escape();

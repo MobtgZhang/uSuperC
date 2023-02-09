@@ -20,6 +20,11 @@ void PauseMenu::enter(){
 
 }
 
-void escapse(){
+void PauseMenu::escape(){
 
 }
+
+void PauseMenu::updateActiveButton(int iDir){
+
+}
+
