@@ -22,7 +22,8 @@ public:
     // 控制动作键
     static int keyIDA,keyIDB,keyIDX,keyIDY;
     static bool canMoveBackward;
-
+    // 获取keyID 对应的字符串
+    static std::string getKeyString(int keyID);
 };
 
 # endif
