@@ -6,9 +6,9 @@
 # include<iostream>
 
 MainMenu::MainMenu(){
-    this->lMO.push_back(new MenuOption("START",320,272));
-    this->lMO.push_back(new MenuOption("OPTIONS",320,304));
-    this->lMO.push_back(new MenuOption("ABOUT",320,336));
+    this->lMO.push_back(new MenuOption("START",256,256));
+    this->lMO.push_back(new MenuOption("OPTIONS",256,288));
+    this->lMO.push_back(new MenuOption("ABOUT",256,320));
     
     rSelectLevel.x = 122;
 	rSelectLevel.y = 280;
@@ -19,11 +19,19 @@ MainMenu::MainMenu(){
     this->activeMenuOption = mainSTART;
     this->selectLevel = false;
     this->activeLevelID = 0;
-
+    this->iTime = SDL_GetTicks();
+    this->twinkleTime = SDL_GetTicks();
+    //设置菜单是否闪烁
+    this->twinkle = false;
 }
 
 MainMenu::~MainMenu(){
 
+}
+
+void MainMenu::setTwinkle(bool twinkle){
+    Menu::setTwinkle(twinkle);
+    this->twinkle = twinkle;    
 }
 
 void MainMenu::Draw(SDL_Renderer* rR){
@@ -65,25 +73,48 @@ void MainMenu::escape(){
 }
 
 void MainMenu::enter(){
+    if(twinkle){
+       return; 
+    }
     switch(activeMenuOption){
-        case mainSTART:
+        case MainMenu::mainSTART:
             if(!selectLevel){
                 selectLevel = true;
             }else{
+                selectLevel = false;
+                CCFG::getMM()->getMainMenu()->setTwinkle(true);
+                CCFG::getMM()->getMainMenu()->updateTime();
                 //这里进入到某一个关卡当中
+                // setworld etc.
+                CCFG::getMM()->getLoadingMenu()->setLoadingType(true);
             }
             break;
-        case mainOPTIONS:
+        case MainMenu::mainOPTIONS:
             //选项菜单
             CCFG::getMM()->getOptionsMenu()->setEscapeToMainMenu(true);
+            CCFG::getMM()->resetGameState(CCFG::getMM()->eOptions);
+            CCFG::getMM()->getOptionsMenu()->updateVolumeRect();
+            CCFG::getMM()->setGameState(CCFG::getMM()->eOptions);
             break;
-        case mainABOUT:
+        case MainMenu::mainABOUT:
             //关于菜单
+            CCFG::getMM()->getAboutMenu()->updateTime();
+            CCFG::getMM()->setGameState(CCFG::getMM()->eAbout);
+            CCFG::getMusic()->PlayMusic(CCFG::getMusic()->mSTAGE1);
+            break;
+        default:
             break;
     }
 }
 
+void MainMenu::updateTime(){
+    this->iTime = SDL_GetTicks();
+}
+
 void MainMenu::updateActiveButton(int iDir){
+    if(twinkle){
+        return; 
+    }
     switch(iDir){
         case iUP_ITEM:case iDOWN_ITEM:
             if(!selectLevel){
@@ -112,6 +143,14 @@ void MainMenu::updateActiveButton(int iDir){
 }
 
 void MainMenu::Update(){
-
+    if(twinkle){
+        if(SDL_GetTicks() - this->iTime>=2000 && CCFG::getMM()->getGameState()==CCFG::getMM()->eMainMenu){
+            CCFG::getMM()->setGameState(CCFG::getMM()->eGameLoading);
+            CCFG::getMM()->getMainMenu()->setTwinkle(false);
+            CCFG::getMM()->getLoadingMenu()->updateTime();
+            //CCFG::getMusic()->StopMusic();
+        }
+    }
     Menu::Update();
 }
+

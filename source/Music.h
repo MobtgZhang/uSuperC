@@ -23,7 +23,6 @@ public:
     enum eChunk{
         cALARM,
         cBOUNS,
-        cBOMBING_0,
         cBOMBING_1,
         cBOMBING_2,
         cBOMBING_3,
@@ -40,9 +39,7 @@ public:
         cHITSND4,
         cHITSND5,
         cHITSND6,
-        cHITSND7,
 
-        cBONUS,
         cF_GUN,
         cL_GUN,
         cM_GUN,
@@ -52,9 +49,9 @@ public:
         cP_1UP,
         cP_DEATH,
         cPAUSE,
-        cPIPEBOMB,
         cLASER,
-        cSTONE_LANDING
+        cSTONE_LANDING,
+        cENEMY
     };
 
     enum eMusic {

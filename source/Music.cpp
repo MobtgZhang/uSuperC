@@ -4,49 +4,53 @@ Music::Music(){
     //初始化SDL2音效
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     //加载Music文件
-
-    vMusic.push_back(loadMusic("01 Contra (Title)"));
-    vMusic.push_back(loadMusic("02 Introduction"));
-    vMusic.push_back(loadMusic("03 Jungle Battle (Stage 1, 7)"));
-    vMusic.push_back(loadMusic("04 Triumphant Return 1 (Stage Clear)"));
-    vMusic.push_back(loadMusic("05 Maze Fortress 1 (Stage 2, 4)"));
-    vMusic.push_back(loadMusic("06 Maze Fortress 2 (Stage 2, 4 Boss)"));
-    vMusic.push_back(loadMusic("07 Waterfall of Bloodshed (Stage 3)"));
-    vMusic.push_back(loadMusic("08 Fortress of Ice (Stage 5)"));
-    vMusic.push_back(loadMusic("09 Fortress of Flame (Stage 6)"));
-    vMusic.push_back(loadMusic("10 Horrible Heartbeat (Stage 8)"));
-    vMusic.push_back(loadMusic("11 Triumphant Return 2 (All Stage Clear)"));
-    vMusic.push_back(loadMusic("12 Sandinista (Ending)"));
-    vMusic.push_back(loadMusic("13 Game Over"));
+    vMusic.push_back(loadMusic("Stage 1"));
+    vMusic.push_back(loadMusic("Stage 2"));
+    vMusic.push_back(loadMusic("Stage 3"));
+    vMusic.push_back(loadMusic("Stage 4"));
+    vMusic.push_back(loadMusic("Stage 5"));
+    vMusic.push_back(loadMusic("Stage 6"));
+    vMusic.push_back(loadMusic("Stage 7"));
+    vMusic.push_back(loadMusic("Stage 8"));
+    vMusic.push_back(loadMusic("Boss 1"));
+    vMusic.push_back(loadMusic("Boss 2"));
+    vMusic.push_back(loadMusic("Boss 3"));
+    vMusic.push_back(loadMusic("Stage Clear 1"));
+    vMusic.push_back(loadMusic("Stage Clear 2"));
+    vMusic.push_back(loadMusic("End"));
+    vMusic.push_back(loadMusic("Game Over"));
 
 
     //加载Chunk
 
-    vChunk.push_back(loadChunk("airplane_motor"));
     vChunk.push_back(loadChunk("alarm"));
-    vChunk.push_back(loadChunk("bombing0"));
-    vChunk.push_back(loadChunk("bombing1"));
-    vChunk.push_back(loadChunk("bombing2"));
-    vChunk.push_back(loadChunk("bombing3"));
-    vChunk.push_back(loadChunk("bombing4"));
     vChunk.push_back(loadChunk("bonus"));
+    vChunk.push_back(loadChunk("boom1"));
+    vChunk.push_back(loadChunk("boom2"));
+    vChunk.push_back(loadChunk("boom3"));
+    vChunk.push_back(loadChunk("boom4"));
+    vChunk.push_back(loadChunk("boom5"));
+    vChunk.push_back(loadChunk("boom6"));
+    vChunk.push_back(loadChunk("boom7"));
+    vChunk.push_back(loadChunk("boom8"));
+    vChunk.push_back(loadChunk("hit0"));
+    vChunk.push_back(loadChunk("hit1"));
+    vChunk.push_back(loadChunk("hit2"));
+    vChunk.push_back(loadChunk("hit3"));
+    vChunk.push_back(loadChunk("hit4"));
+    vChunk.push_back(loadChunk("hit5"));
+    vChunk.push_back(loadChunk("hit6"));
     vChunk.push_back(loadChunk("f_gun"));
     vChunk.push_back(loadChunk("l_gun"));
     vChunk.push_back(loadChunk("m_gun"));
     vChunk.push_back(loadChunk("n_gun"));
     vChunk.push_back(loadChunk("s_gun"));
-    vChunk.push_back(loadChunk("flame"));
-    vChunk.push_back(loadChunk("hitsnd0"));
-    vChunk.push_back(loadChunk("hitsnd1"));
-    vChunk.push_back(loadChunk("hitsnd2"));
     vChunk.push_back(loadChunk("p_1up"));
     vChunk.push_back(loadChunk("p_death"));
-    vChunk.push_back(loadChunk("p_landing"));
-    vChunk.push_back(loadChunk("p_shock"));
     vChunk.push_back(loadChunk("pause"));
-    vChunk.push_back(loadChunk("pipebomb"));
-    vChunk.push_back(loadChunk("robot_landing"));
+    vChunk.push_back(loadChunk("laser"));
     vChunk.push_back(loadChunk("stone_landing"));
+    vChunk.push_back(loadChunk("enemy"));
 
     setVolume(100);
 	this->currentMusic = mNOTHING;

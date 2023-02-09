@@ -2,7 +2,9 @@
 # include "CFG.h"
 # include <iostream>
 
-// some initialize parameters
+Map* Application::oMap = new Map();
+
+// 是否一直按着向左或者向右按键
 bool Application::keyLeftPressed = false;
 bool Application::keyRightPressed = false;
 // 游戏控制键
@@ -17,6 +19,13 @@ bool Application::keyY = false;
 //其他按键
 bool Application::keyMenuPressed = false;
 
+//游戏退出
+bool Application::quitGame = false;
+//获取地图
+Map* Application::getMap(){
+    return oMap;
+}
+
 Application::Application(){
     this->quitGame = false;
     this->iFPS = 0;
@@ -27,7 +36,7 @@ Application::Application(){
     SDL_Init(SDL_INIT_VIDEO| SDL_INIT_TIMER| SDL_INIT_AUDIO);
     // 创建窗口
     //创建窗口
-    m_window = SDL_CreateWindow("uContra",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
+    m_window = SDL_CreateWindow("uSuperContra",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
                     CCFG::GAME_WIDTH,CCFG::GAME_HEIGHT,SDL_WINDOW_SHOWN);
     if(m_window == NULL){
         quitGame = true;
@@ -42,15 +51,14 @@ Application::Application(){
     SDL_FreeSurface(loadedSurface);
     // 设置全局事件信息
     mainEvent = new SDL_Event();
-    // 加载音效文件
     
     // 加载地图文件
-    
+
+    //oMap = new Map(m_renderer);
     // 显示界面，
     CCFG::getMM()->setActiveOption(m_renderer);
     CCFG::getLogo()->setImg("contra",m_renderer);
     CCFG::getText()->setFont(m_renderer,"font");
-
 
     // 加载并渲染主页面
 
@@ -116,24 +124,17 @@ void Application::mainloop(){
 //按键信息
 void Application::Input(){
     switch(CCFG::getMM()->getGameState()){
-        case MenuManager::eMainMenu:
-            InputMenu();
-            break;
-        case MenuManager::eAbout:
-            break;
-        case MenuManager::ePause:
-            break;
-        case MenuManager::eGameLoading:
-            break;
         case MenuManager::eGame:
+            InputLayer();
             break;
-        case MenuManager::eOptions:
-            break;
+        default:
+            InputMenu();
     }
 }
 //菜单输入
 void Application::InputMenu(){
     if(mainEvent->type == SDL_KEYDOWN){
+        CCFG::getMM()->setKey(mainEvent->key.keysym.sym);
         switch(mainEvent->key.keysym.sym){
             //按下了向下的按键
             case SDLK_s: case SDLK_DOWN:
@@ -191,6 +192,60 @@ void Application::InputMenu(){
 		}
     }
 }
+
+//加载玩家信息
+
+void Application::InputLayer(){
+    if(mainEvent->type == SDL_WINDOWEVENT){
+        switch(mainEvent->window.event){
+            //当前窗口失去焦点信息时候，进入暂停界面，并且暂停音乐
+            case SDL_WINDOWEVENT_FOCUS_LOST:
+                CCFG::getMM()->resetGameState(CCFG::getMM()->ePause);
+                CCFG::getMM()->setGameState(CCFG::getMM()->ePause);
+                CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cPAUSE);
+                CCFG::getMusic()->PauseMusic();
+                break;
+            default:
+                break;
+        }
+    }
+
+    if(mainEvent->type == SDL_KEYUP){
+        //回车键/ESC键抬起的时候，
+        switch(mainEvent->key.keysym.sym){
+            case SDLK_KP_ENTER: case SDLK_RETURN: case SDLK_ESCAPE:
+                keyMenuPressed = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+    if(mainEvent->type == SDL_KEYDOWN){
+        switch(mainEvent->key.keysym.sym){
+            case SDLK_KP_ENTER: case SDLK_RETURN:
+                if(!keyMenuPressed){
+                    CCFG::getMM()->enter();
+                    keyMenuPressed = true;
+                }
+                break;
+            case SDLK_ESCAPE:
+                if(!keyMenuPressed && CCFG::getMM()->getGameState() == CCFG::getMM()->eGame){
+                    CCFG::getMM()->resetGameState(CCFG::getMM()->ePause);
+                    CCFG::getMM()->setGameState(CCFG::getMM()->ePause);
+                    CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cPAUSE);
+                    CCFG::getMusic()->PauseMusic();
+                    keyMenuPressed = true;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+}
+
+
 //绘制
 void Application::Draw(){
     CCFG::getMM()->Draw(m_renderer);

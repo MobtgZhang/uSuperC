@@ -18,7 +18,7 @@ bool CCFG::canMoveBackward = true;
 MenuManager* CCFG::oMM = new MenuManager();
 CImg* CCFG::tLogo = new CImg();
 Text* CCFG::tText = new Text();
-
+Music* CCFG::oMusic = new Music();
 Text* CCFG::getText(){
     return tText;
 }
@@ -31,6 +31,9 @@ CImg* CCFG::getLogo(){
     return tLogo;
 }
 
+Music* CCFG::getMusic(){
+	return oMusic;
+}
 
 std::string CCFG::getKeyString(int keyID) {
 	if(keyID >= 97 && keyID <= 122) {
