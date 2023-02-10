@@ -8,13 +8,6 @@ class LoadingMenu: public Menu{
 private:
     unsigned int iTime;
     bool loadingType; // -- true = LOADING, false = GAME OVER
-
-
-    // 设置是否遮罩
-    bool active_draw;
-    // 闪烁时间
-    unsigned int twinkleTime;
-
 public:
     LoadingMenu();
     ~LoadingMenu();
