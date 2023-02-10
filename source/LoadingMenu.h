@@ -8,6 +8,7 @@ class LoadingMenu: public Menu{
 private:
     unsigned int iTime;
     bool loadingType; // -- true = LOADING, false = GAME OVER
+    unsigned int iTimeGameOver;
 public:
     LoadingMenu();
     ~LoadingMenu();
